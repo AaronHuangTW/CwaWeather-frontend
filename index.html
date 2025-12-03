@@ -10,19 +10,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./icon-v2.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&display=swap"
         rel="stylesheet">
 
     <style>
         :root {
-            --ac-green: #7DE1A9;
-            --ac-bg-pattern: #8FD8AF;
-            --ac-cream: #FFFEF2;
-            --ac-yellow: #F9F195;
-            --ac-brown: #796452;
-            --ac-blue: #4FB5D9;
-            --ac-dark: #58504A;
-            --ac-card-border: #E6E0C8;
+            --ac-green: #000000; /* background */
+            --ac-cream: #FFFFFF; /* card background */
+            --ac-yellow: #FFFFFF; /* location pill */
+            --ac-brown: #000000; /* text on pill */
+            --ac-blue: #DD0000; /* accent red */
+            --ac-dark: #000000; /* main text */
+            --ac-card-border: #000000;
         }
 
         * {
@@ -33,11 +32,8 @@
         }
 
         body {
-            font-family: 'Zen Maru Gothic', sans-serif;
+            font-family: 'Noto Serif JP', serif;
             background-color: var(--ac-green);
-            /* 更細緻的斜紋背景 */
-            background-image:
-                repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255, 255, 255, 0.2) 20px, rgba(255, 255, 255, 0.2) 40px);
             min-height: 100vh;
             color: var(--ac-dark);
             /* 防止 iOS 左右滑動 */
@@ -51,53 +47,45 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #333;
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
         .location-pill {
-            background: var(--ac-yellow);
-            color: var(--ac-brown);
+            background: var(--ac-cream);
+            color: var(--ac-dark);
             padding: 5px 15px;
-            border-radius: 20px;
+            border-radius: 0;
             font-weight: 900;
             font-size: 1.1rem;
-            transform: rotate(-2deg);
-            border: 2px solid white;
-            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+            border: 2px solid black;
         }
 
         .update-pill {
             font-size: 0.8rem;
             color: white;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 4px 10px;
-            border-radius: 12px;
         }
 
         .container {
             padding: 20px;
             max-width: 600px;
-            /* 限制在大手機寬度 */
             margin: 0 auto;
         }
 
         /* === 核心：今日焦點卡片 === */
         .hero-card {
             background: var(--ac-cream);
-            border-radius: 35px;
+            border-radius: 0;
             padding: 30px 25px;
             text-align: center;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            border: 4px solid white;
+            border: 3px solid black;
             margin-bottom: 25px;
             position: relative;
         }
 
-        /* 像動森的對話氣泡 */
         .hero-period {
             position: absolute;
             top: -15px;
@@ -106,10 +94,9 @@
             background: var(--ac-blue);
             color: white;
             padding: 5px 20px;
-            border-radius: 20px;
+            border-radius: 0;
             font-weight: bold;
-            border: 3px solid white;
-            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+            border: 2px solid black;
         }
 
         .hero-temp-container {
@@ -121,54 +108,62 @@
         }
 
         .hero-icon {
+            font-size: 0; /* Hide original text content */
+            animation: glitch 5s infinite step-end;
+            position: relative;
+            height: 5rem; /* Ensure container has height */
+        }
+        .hero-icon::before {
+            content: '🌀';
             font-size: 5rem;
-            filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.1));
-            animation: bounce 3s infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
+        @keyframes glitch {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-2px, 2px); }
+            20% { transform: translate(2px, -2px); }
+            30% { transform: translate(-2px, -2px); }
+            40% { transform: translate(2px, 2px); }
+            50% { transform: translate(0, 0); }
         }
+
 
         .hero-temp {
             font-size: 4.5rem;
             font-weight: 900;
-            color: var(--ac-brown);
+            color: var(--ac-dark);
             line-height: 1;
         }
 
         .hero-desc {
             font-size: 1.5rem;
-            color: #8A7B70;
+            color: #333;
             margin-bottom: 20px;
             font-weight: bold;
         }
 
-        /* === 上班族最愛的：快速建議區 === */
+        /* === 快速建議區 === */
         .advice-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 2px dashed #E0D8C0;
+            border-top: 2px solid #000;
         }
 
         .advice-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(255, 255, 255, 0.5);
+            background: #eee;
             padding: 10px;
-            border-radius: 20px;
+            border-radius: 0;
+            border: 1px solid #ccc;
         }
 
         .advice-icon {
@@ -179,7 +174,7 @@
         .advice-text {
             font-size: 1.4rem;
             font-weight: 900;
-            color: var(--ac-brown);
+            color: var(--ac-dark);
             margin: 5px 0;
             line-height: 1.2;
         }
@@ -191,7 +186,6 @@
             margin-bottom: 15px;
             margin-left: 10px;
             font-weight: 900;
-            text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
         }
 
         .scroll-container {
@@ -199,7 +193,6 @@
             overflow-x: auto;
             gap: 15px;
             padding-bottom: 10px;
-            /* 隱藏滾動條但保留功能 */
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
@@ -210,24 +203,24 @@
 
         .mini-card {
             min-width: 140px;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 25px;
+            background: #FFFFFF;
+            border-radius: 0;
             padding: 20px 15px;
             text-align: center;
-            border: 3px solid white;
+            border: 2px solid black;
             flex-shrink: 0;
-            /* 防止被擠壓 */
         }
 
         .mini-time {
-            background: var(--ac-green);
-            color: white;
+            background: white;
+            color: black;
             padding: 3px 10px;
-            border-radius: 10px;
+            border-radius: 0;
             font-size: 0.8rem;
             display: inline-block;
             margin-bottom: 10px;
             font-weight: bold;
+            border: 1px solid black;
         }
 
         .mini-icon {
@@ -260,8 +253,8 @@
 
 <body>
     <div id="loading" class="loading-screen">
-        <div style="font-size: 4rem; animation: bounce 2s infinite;">☁️</div>
-        <p style="color: white; font-weight: bold; margin-top: 20px;">正在觀測雲的流動...</p>
+        <div style="font-size: 4rem;">🌀</div>
+        <p style="color: white; font-weight: bold; margin-top: 20px;">深淵正在凝視你...</p>
     </div>
     <div class="status-bar">
         <div class="location-pill">📍 臺北</div>
@@ -283,18 +276,18 @@
         const API_URL = "https://cwaweather-backend-aaron.zeabur.app/api/weather/kaohsiung";
 
         function getWeatherIcon(weather) {
-            if (!weather) return "🌤️";
-            if (weather.includes("晴")) return "☀️";
-            if (weather.includes("多雲")) return "⛅";
-            if (weather.includes("陰")) return "☁️";
-            if (weather.includes("雨")) return "🌧️";
-            if (weather.includes("雷")) return "⛈️";
-            return "🌤️";
+            if (!weather) return "？";
+            if (weather.includes("晴")) return "晴";
+            if (weather.includes("多雲")) return "曇";
+            if (weather.includes("陰")) return "陰";
+            if (weather.includes("雨")) return "雨";
+            if (weather.includes("雷")) return "雷";
+            return "？";
         }
 
         function getAdvice(rainProb, maxTemp) {
             let rainIcon = "🌂";
-            let rainText = "不用帶傘";
+            let rainText = "放心出門啦";
             if (parseInt(rainProb) > 30) {
                 rainIcon = "☂️";
                 rainText = "記得帶傘！";
